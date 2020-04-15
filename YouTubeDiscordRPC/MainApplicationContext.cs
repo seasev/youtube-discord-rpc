@@ -28,6 +28,7 @@ namespace YouTubeDiscordRPC
             };
 
             this.trayIcon.Click += NotifyIcon_Click;
+            this.trayIcon.DoubleClick += Exit;
         }
 
         // Change the context menu items based on RPC state
