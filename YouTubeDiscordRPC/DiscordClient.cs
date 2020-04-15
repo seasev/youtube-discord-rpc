@@ -14,6 +14,11 @@ namespace YouTubeDiscordRPC
 
         private static int discordPipe = -1;
 
+        private static readonly RichPresence idlePresence = new RichPresence()
+        {
+            State = "Idle"
+        };
+
         private static DiscordRpcClient client;
 
         public static bool IsRunning { get; private set; } = false;
@@ -58,12 +63,7 @@ namespace YouTubeDiscordRPC
         // Update the presence in Discord
         private static void UpdatePresence()
         {
-            client.SetPresence(new RichPresence()
-            {
-                Details = "A Basic Presence",
-                State = "In-Game",
-                Timestamps = Timestamps.FromTimeSpan(20)
-            });
+            client.SetPresence(idlePresence);
         }
 
         // Stop showing the rich presence in Discord
