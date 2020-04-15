@@ -7,13 +7,8 @@ namespace YouTubeDiscordRPC
     {
         private NotifyIcon trayIcon;
 
-        private MenuItem stateItem;
-        private MenuItem exitItem;
-
         public MainApplicationContext()
         {
-            stateItem = new MenuItem("Stop", Stop);
-            exitItem = new MenuItem("Exit", Exit);
 
             this.trayIcon = new NotifyIcon()
             {

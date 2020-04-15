@@ -10,7 +10,7 @@ namespace YouTubeDiscordRPC
         // Important variables and constants
         private const string clientID = "699671462117638166";
 
-        private static LogLevel logLevel = LogLevel.Info;
+        private const LogLevel logLevel = LogLevel.Info;
 
         private static int discordPipe = -1;
 
@@ -22,8 +22,6 @@ namespace YouTubeDiscordRPC
         private static DiscordRpcClient client;
 
         public static bool IsRunning { get; private set; } = false;
-
-        private static StringBuilder word = new StringBuilder();
 
 
         // Main program
@@ -60,11 +58,13 @@ namespace YouTubeDiscordRPC
             IsRunning = true;
         }
 
+
         // Update the presence in Discord
         private static void UpdatePresence()
         {
             client.SetPresence(idlePresence);
         }
+
 
         // Stop showing the rich presence in Discord
         public static void Stop()
@@ -74,6 +74,7 @@ namespace YouTubeDiscordRPC
             IsRunning = false;
         }
 
+
         // Re-enable the rich presence
         public static void Start()
         {
@@ -81,6 +82,7 @@ namespace YouTubeDiscordRPC
 
             IsRunning = true;
         }
+
 
         // Toggle the state of the rich presence
         public static void Toggle()
@@ -90,6 +92,7 @@ namespace YouTubeDiscordRPC
             else
                 Start();
         }
+
 
         // Destroy the client
         public static void Exit()
