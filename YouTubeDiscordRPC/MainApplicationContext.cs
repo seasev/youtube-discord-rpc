@@ -23,7 +23,7 @@ namespace YouTubeDiscordRPC
             };
 
             this.trayIcon.Click += NotifyIcon_Click;
-            this.trayIcon.DoubleClick += Exit;
+            this.trayIcon.DoubleClick += NotifyIcon_DoubleClick;
         }
 
         // Change the context menu items based on RPC state
@@ -70,6 +70,19 @@ namespace YouTubeDiscordRPC
                 case MouseButtons.Left:
                     DiscordClient.Toggle();
                     UpdateContextMenu();
+                    break;
+            }
+        }
+
+        // Runs when the tray icon is double-clicked
+        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            var eventArgs = e as MouseEventArgs;
+
+            switch (eventArgs.Button)
+            {
+                case MouseButtons.Left:
+                    Exit(sender, e);
                     break;
             }
         }
