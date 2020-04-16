@@ -7,6 +7,9 @@ namespace YouTubeDiscordRPC
     {
         private NotifyIcon trayIcon;
 
+        private const string infoMsg = "This is a Discord Rich Presence client for Discord made by SagaFreya. It gets information about any YouTube videos you're watching and shows them under the \"Playing\" section of your Discord profile.";
+        private const string infoCap = "YouTube Rich Presence Client - Information";
+
         public MainApplicationContext()
         {
 
@@ -16,6 +19,7 @@ namespace YouTubeDiscordRPC
                 Icon = Properties.Resources.AppIcon,
                 ContextMenu = new ContextMenu(new MenuItem[]
                 {
+                    new MenuItem("Info", Info),
                     new MenuItem("Stop", Stop),
                     new MenuItem("Exit", Exit)
                 }),
@@ -32,6 +36,7 @@ namespace YouTubeDiscordRPC
             trayIcon.ContextMenu.Dispose();
             trayIcon.ContextMenu = new ContextMenu(new MenuItem[]
             {
+                new MenuItem("Info", Info),
                 DiscordClient.IsRunning ? new MenuItem("Stop", Stop) : new MenuItem("Start", Start),
                 new MenuItem("Exit", Exit)
             });
@@ -70,6 +75,11 @@ namespace YouTubeDiscordRPC
 
             this.trayIcon.Visible = false;
             Application.Exit();
+        }
+
+        void Info(object sender, EventArgs e)
+        {
+            MessageBox.Show(infoMsg, infoCap, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Runs when the tray icon is clicked
