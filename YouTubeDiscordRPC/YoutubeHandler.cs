@@ -28,7 +28,7 @@ namespace YouTubeDiscordRPC
         }
 
 
-        // Function to start, stop, and exit the timer
+        // Functions to start, stop, and exit the timer
         public static void Start()
         {
             timer.Start();
@@ -63,11 +63,13 @@ namespace YouTubeDiscordRPC
 
             Process finalProcess = null;
 
+            // Check all the window titles for "YouTube"
             foreach (Process process in processList)
             {
                 if (process.MainWindowTitle.ToLower().Contains("youtube") && IsBrowser(process))
                 {
                     Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                    // Stop at the first match - no more than one YouTube window is scanned
                     finalProcess = process;
                     break;
                 }
@@ -80,6 +82,7 @@ namespace YouTubeDiscordRPC
                 // Check if video details have changed
                 if (currentVideo == null || !(currentVideo.Title == video.Title && currentVideo.Idle == video.Idle))
                 {
+                    // Only if the video is different, update the presence
                     currentVideo = video;
                     DiscordClient.SetVideo(video);
                 }
@@ -110,16 +113,16 @@ namespace YouTubeDiscordRPC
 
             string[] terms = windowTitle.Split(new string[] { " - " }, StringSplitOptions.None);
 
+            // If there is no video title, assume user is on the YouTube homepage
             if (terms.Length <= 2)
             {
                 video.Idle = true;
                 return video;
             }
 
+            // Get the video title
             Array.Resize(ref terms, terms.Length - 2);
-
             string title = string.Join(" - ", terms);
-
             video.Title = title;
 
             return video;

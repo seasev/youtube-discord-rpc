@@ -10,7 +10,7 @@ namespace YouTubeDiscordRPC
 
         public MainApplicationContext()
         {
-
+            // Create tray icon with context menu
             this.trayIcon = new NotifyIcon()
             {
                 Text = "YouTube Discord RPC Client",
@@ -75,6 +75,7 @@ namespace YouTubeDiscordRPC
             Application.Exit();
         }
 
+        // Display a panel with info about the program (based on Assembly details)
         void Info(object sender, EventArgs e)
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -90,6 +91,7 @@ namespace YouTubeDiscordRPC
 
             switch (eventArgs.Button)
             {
+                // Toggle the state of the program if it was left-clicked
                 case MouseButtons.Left:
                     Toggle(sender, e);
                     break;
@@ -103,6 +105,7 @@ namespace YouTubeDiscordRPC
 
             switch (eventArgs.Button)
             {
+                // Exit the program if it was double left-clicked
                 case MouseButtons.Left:
                     Exit(sender, e);
                     break;

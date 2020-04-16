@@ -13,6 +13,7 @@ namespace YouTubeDiscordRPC
 
         private static int discordPipe = -1;
 
+        // Default presence for YouTube homepage
         private static readonly RichPresence idlePresence = new RichPresence()
         {
             State = "Idle",
@@ -37,7 +38,7 @@ namespace YouTubeDiscordRPC
         }
 
 
-        // Presence example
+        // Connect the client to Discord
         private static void Connect()
         {
             client = new DiscordRpcClient(clientID, pipe: discordPipe)
@@ -62,11 +63,12 @@ namespace YouTubeDiscordRPC
             IsRunning = true;
         }
 
-        // Set a new presence based on playing video
+        // Set a new presence based on playing video (or lack thereof)
         public static void SetVideo(YoutubeVideo video)
         {
             if (video.Idle)
             {
+                // Update idle timestamp
                 idlePresence.Timestamps = Timestamps.Now;
                 client.SetPresence(idlePresence);
             }
@@ -95,7 +97,7 @@ namespace YouTubeDiscordRPC
         // Stop showing the rich presence in Discord
         public static void Stop()
         {
-            client.ClearPresence();
+            ClearVideo();
 
             IsRunning = false;
         }
