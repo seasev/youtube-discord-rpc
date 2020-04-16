@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace YouTubeDiscordRPC
@@ -16,6 +17,7 @@ namespace YouTubeDiscordRPC
                 Icon = Properties.Resources.AppIcon,
                 ContextMenu = new ContextMenu(new MenuItem[]
                 {
+                    new MenuItem("Info", Info),
                     new MenuItem("Stop", Stop),
                     new MenuItem("Exit", Exit)
                 }),
@@ -32,6 +34,7 @@ namespace YouTubeDiscordRPC
             trayIcon.ContextMenu.Dispose();
             trayIcon.ContextMenu = new ContextMenu(new MenuItem[]
             {
+                new MenuItem("Info", Info),
                 DiscordClient.IsRunning ? new MenuItem("Stop", Stop) : new MenuItem("Start", Start),
                 new MenuItem("Exit", Exit)
             });
@@ -70,6 +73,14 @@ namespace YouTubeDiscordRPC
 
             this.trayIcon.Visible = false;
             Application.Exit();
+        }
+
+        void Info(object sender, EventArgs e)
+        {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string title = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>().Title;
+            string description = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>().Description;
+            MessageBox.Show(description + "\n\nVersion " + version, title + " - Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Runs when the tray icon is clicked
