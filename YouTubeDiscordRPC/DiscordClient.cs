@@ -1,7 +1,6 @@
 ﻿using DiscordRPC;
 using DiscordRPC.Logging;
 using System;
-using System.Text;
 
 namespace YouTubeDiscordRPC
 {
@@ -53,16 +52,33 @@ namespace YouTubeDiscordRPC
 
             client.Initialize();
 
-            UpdatePresence();
+            ClearVideo();
 
             IsRunning = true;
         }
 
-
-        // Update the presence in Discord
-        private static void UpdatePresence()
+        // Set a new presence based on playing video
+        public static void SetVideo(YoutubeVideo video)
         {
-            client.SetPresence(idlePresence);
+            if (video.Idle)
+            {
+                idlePresence.Timestamps = Timestamps.Now;
+                client.SetPresence(idlePresence);
+            }
+            else
+                client.SetPresence(new RichPresence
+                {
+                    Details = video.Title,
+                    State = "Watching",
+                    Timestamps = Timestamps.Now
+                });
+        }
+
+
+        // If YouTube isn't open, clear the presence
+        public static void ClearVideo()
+        {
+            client.ClearPresence();
         }
 
 
@@ -78,19 +94,7 @@ namespace YouTubeDiscordRPC
         // Re-enable the rich presence
         public static void Start()
         {
-            UpdatePresence();
-
             IsRunning = true;
-        }
-
-
-        // Toggle the state of the rich presence
-        public static void Toggle()
-        {
-            if (IsRunning)
-                Stop();
-            else
-                Start();
         }
 
 

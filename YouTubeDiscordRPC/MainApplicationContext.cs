@@ -40,6 +40,7 @@ namespace YouTubeDiscordRPC
         // Pause the RPC
         void Stop(object sender, EventArgs e)
         {
+            YoutubeHandler.Stop();
             DiscordClient.Stop();
             UpdateContextMenu();
         }
@@ -48,12 +49,23 @@ namespace YouTubeDiscordRPC
         void Start(object sender, EventArgs e)
         {
             DiscordClient.Start();
+            YoutubeHandler.Start();
             UpdateContextMenu();
+        }
+
+        // Run start or stop based on application state
+        void Toggle(object sender, EventArgs e)
+        {
+            if (DiscordClient.IsRunning)
+                Stop(sender, e);
+            else
+                Start(sender, e);
         }
 
         // Exit the application
         void Exit(object sender, EventArgs e)
         {
+            YoutubeHandler.Exit();
             DiscordClient.Exit();
 
             this.trayIcon.Visible = false;
@@ -68,8 +80,7 @@ namespace YouTubeDiscordRPC
             switch (eventArgs.Button)
             {
                 case MouseButtons.Left:
-                    DiscordClient.Toggle();
-                    UpdateContextMenu();
+                    Toggle(sender, e);
                     break;
             }
         }

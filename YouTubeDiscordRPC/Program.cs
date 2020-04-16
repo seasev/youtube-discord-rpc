@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace YouTubeDiscordRPC
@@ -9,10 +8,13 @@ namespace YouTubeDiscordRPC
         [STAThread]
         static void Main()
         {
-            DiscordClient.Initialize();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            DiscordClient.Initialize();
+
+            YoutubeHandler.Initialize();
+            YoutubeHandler.Start();
             
             Application.Run(new MainApplicationContext());
         }
