@@ -15,7 +15,12 @@ namespace YouTubeDiscordRPC
 
         private static readonly RichPresence idlePresence = new RichPresence()
         {
-            State = "Idle"
+            State = "Idle",
+            Assets = new Assets
+            {
+                LargeImageKey = "squircle_red",
+                LargeImageText = "Idle"
+            }
         };
 
         private static DiscordRpcClient client;
@@ -28,12 +33,12 @@ namespace YouTubeDiscordRPC
         {
             discordPipe = pipe;
 
-            MainPresence();
+            Connect();
         }
 
 
         // Presence example
-        private static void MainPresence()
+        private static void Connect()
         {
             client = new DiscordRpcClient(clientID, pipe: discordPipe)
             {
@@ -70,7 +75,12 @@ namespace YouTubeDiscordRPC
                 {
                     Details = video.Title,
                     State = "Watching",
-                    Timestamps = Timestamps.Now
+                    Timestamps = Timestamps.Now,
+                    Assets = new Assets
+                    {
+                        LargeImageKey = "squircle_red",
+                        LargeImageText = "Watching a Video"
+                    }
                 });
         }
 
