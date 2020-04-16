@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace YouTubeDiscordRPC
@@ -6,9 +7,6 @@ namespace YouTubeDiscordRPC
     class MainApplicationContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
-
-        private const string infoMsg = "This is a Discord Rich Presence client for Discord made by SagaFreya. It gets information about any YouTube videos you're watching and shows them under the \"Playing\" section of your Discord profile.";
-        private const string infoCap = "YouTube Rich Presence Client - Information";
 
         public MainApplicationContext()
         {
@@ -79,7 +77,10 @@ namespace YouTubeDiscordRPC
 
         void Info(object sender, EventArgs e)
         {
-            MessageBox.Show(infoMsg, infoCap, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string title = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>().Title;
+            string description = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>().Description;
+            MessageBox.Show(description + "\n\nVersion " + version, title + " - Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Runs when the tray icon is clicked
