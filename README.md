@@ -1,3 +1,5 @@
+# This is deprecated, use PreMiD instead.
+
 # YouTube Discord RPC
 This program scans the titles of all open windows to find any open YouTube tabs, then sets your rich presence in Discord to have details about the video. At the current moment it can only find them if the YouTube tab has focus, (although the browser can be minimized) but there may be a future feature allowing it to scan all open tabs.
 
